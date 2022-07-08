@@ -24,6 +24,14 @@ const mainReducer = (state = initialState, action) => {
           songList: action.payload,
         },
       };
+      case "GET_SONG":
+      return {
+        ...state,
+        album: {
+          ...state.album,
+          currentSongInPlayer: action.payload,
+        },
+      };
     default:
       return state;
   }
