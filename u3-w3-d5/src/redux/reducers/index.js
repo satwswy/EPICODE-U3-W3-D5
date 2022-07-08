@@ -14,7 +14,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         album: {
           ...state.album,
-          favourites: [...state.favourites, ACTIONpayload],
+          favourites: [...state.favourites, action.payload],
         },
       };
       case "REMOVE_FAVOURITE":
@@ -22,7 +22,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         album: {
           ...state.album,
-          favourites: [...state.favourites, payload],
+          favourites: [...state.favourites, action.payload],
         },
       };
     
