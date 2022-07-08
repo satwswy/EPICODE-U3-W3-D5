@@ -3,11 +3,29 @@ const initialState = {
     albumList: {},
     songList: [],
     currentSongInPlayer: {},
+    favourites: [],
   },
 };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "ADD_FAVOURITE":
+      return {
+        ...state,
+        album: {
+          ...state.album,
+          favourites: [...state.favourites, ACTIONpayload],
+        },
+      };
+      case "REMOVE_FAVOURITE":
+      return {
+        ...state,
+        album: {
+          ...state.album,
+          favourites: [...state.favourites, payload],
+        },
+      };
+    
     case "GET_ALBUM":
       return {
         ...state,

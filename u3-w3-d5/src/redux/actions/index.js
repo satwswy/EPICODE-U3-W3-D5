@@ -31,3 +31,13 @@ export const getAlbumAction = (albumId) => {
           }
     }
 }
+
+export const addFavourite = (song) => ({
+  type: 'ADD_FAVOURITE',
+  payload: song,
+})
+
+export const removeFavourite = (song) => ({
+  type: 'REMOVE_FAVOURITE',
+  payload: song,
+})
