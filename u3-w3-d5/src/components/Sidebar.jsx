@@ -45,7 +45,7 @@ const Sidebar = ({ search }) => {
                     Library
                   </Link>
                 </li>
-                {location === "/" && (
+                {location.pathname === "/" && (
                   <li>
                     <div className="input-group mt-3">
                       <input

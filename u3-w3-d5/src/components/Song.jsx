@@ -1,7 +1,14 @@
-import React from "react";
 
-const Song = ({ track }) => (
-  <div className="py-3 trackHover">
+import React, { useEffect, useState } from "react";
+
+const Song = ({ track }) => {
+  useEffect(() => {
+    console.log(track);
+  }, []);
+
+return(
+  
+  <div className="py-3 trackHover" >
     <span className="card-title trackHover px-3" style={{ color: "white" }}>
       {track.title}
     </span>
@@ -12,6 +19,8 @@ const Song = ({ track }) => (
         : parseInt(track.duration) % 60}
     </small>
   </div>
-);
+)
+     
+};
 
 export default Song;

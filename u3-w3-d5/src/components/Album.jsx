@@ -2,41 +2,32 @@ import React, { useEffect, useState } from "react";
 import Song from "./Song";
 import { Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import {connect} from 'react-redux'
+import {getAlbumAction} from '../redux/actions'
 
-function Album() {
-  const [album, setAlbum] = useState({});
-  const [songs, setSongs] = useState([]);
+const mapStateToProps = (state) => {
+    return{
+        albums: state.album.albumList,
+        songs: state.album.songList,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAlbumsAndSongs: (albumId) =>{
+            dispatch(getAlbumAction(albumId))
+        },
+    }
+}
+
+function Album({albums, songs, getAlbumsAndSongs}) {
 
   const albumId = useParams().id;
 
   useEffect(() => {
-    const fetchAlbum = async () => {
-      let headers = new Headers({
-        "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-        "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
-      });
-
-      try {
-        let response = await fetch(
-          "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
-          {
-            method: "GET",
-            headers,
-          }
-        );
-
-        if (response.ok) {
-          let album = await response.json();
-          setAlbum(album);
-          setSongs(album.tracks.data);
-        }
-      } catch (exception) {
-        console.log(exception);
-      }
-    };
-    fetchAlbum();
-  }, [albumId]);
-
+    getAlbumsAndSongs(albumId);
+  }, []);
+  
   return (
     <div className="col-12 col-md-9 offset-md-3 mainPage">
       <Row className="mb-3">
@@ -49,15 +40,15 @@ function Album() {
         </div>
       </Row>
       <Row>
-        {album.cover && (
+        {albums.cover && (
           <div className="col-md-3 pt-5 text-center" id="img-container">
-            <img src={album.cover} className="card-img img-fluid" alt="Album" />
+            <img src={albums.cover} className="card-img img-fluid" alt="Album" />
             <div className="mt-4 text-center">
-              <p className="album-title">{album.title}</p>
+              <p className="album-title">{albums.title}</p>
             </div>
             <div className="text-center">
               <p className="artist-name">
-                {album.artist ? album.artist.name : ""}
+                {albums.artist ? albums.artist.name : ""}
               </p>
             </div>
             <div className="mt-4 text-center">
@@ -81,4 +72,4 @@ function Album() {
   );
 }
 
-export default Album;
+export default connect(mapStateToProps, mapDispatchToProps)(Album)
